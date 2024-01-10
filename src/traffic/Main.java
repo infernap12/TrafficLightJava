@@ -106,7 +106,7 @@ public class Main {
     enum State {
         NOT_STARTED,
         MENU,
-        SYSTEM;
+        SYSTEM
     }
 }
 
