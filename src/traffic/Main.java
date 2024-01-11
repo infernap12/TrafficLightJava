@@ -2,7 +2,6 @@ package traffic;
 
 import java.io.Console;
 import java.io.IOException;
-import java.util.LinkedList;
 
 public class Main {
 
@@ -13,7 +12,7 @@ public class Main {
 
     static State state = State.NOT_STARTED;
 
-    static LinkedList<String> queue = new LinkedList<>();
+    static RoadQueue queue = new RoadQueue();
 
 
     public static void main(String[] args) throws InterruptedException {
@@ -25,7 +24,7 @@ public class Main {
 
         state = State.MENU;
 
-        Thread worker = new Thread(new TrafficSystem(roads,interval));
+        Thread worker = new Thread(new TrafficRunner(roads,interval));
         worker.setName("QueueThread");
         worker.start();
 
@@ -41,21 +40,18 @@ public class Main {
                     if (queue.size() >= roads) {
                         System.out.println("Error: queue is full");
                     } else {
-                        queue.add(element);
-                        System.out.println("%s Added.".formatted(element));
+                        queue.add(new Road(element));
+                        System.out.printf("%s Added.%n", element);
                     }
                 }
                 case "2" -> {
                     if (queue.isEmpty()) {
                         System.out.println("Error: queue is empty");
                     } else {
-                        System.out.println("%s deleted".formatted(queue.removeFirst()));
+                        System.out.printf("%s deleted%n", queue.removeFirst().name);
                     }
                 }
-                case "3" -> {
-                    //System.out.println("System opened");
-                    state = State.SYSTEM;
-                }
+                case "3" -> state = State.SYSTEM;
                 case "0" -> {
                     System.out.println("Bye!");
                     worker.interrupt();

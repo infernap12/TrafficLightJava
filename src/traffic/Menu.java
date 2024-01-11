@@ -11,10 +11,6 @@ public class Menu {
         this.menu = new LinkedHashMap<>();
     }
 
-//    void theMainOne() {
-//
-//    }
-
     void printOptions() {
         System.out.println("Menu:");
         for (mainMenu value : mainMenu.values()) {

@@ -10,6 +10,12 @@ public class Road {
     }
 
     enum RoadState {
-        OPEN, CLOSED
+        OPEN("\u001B[32m"),
+        CLOSED("\u001B[31m");
+        final String colour;
+
+        RoadState(String colour) {
+            this.colour = colour;
+        }
     }
 }
